@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ignite Initiatives – Essentials of Computer Science Camp</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --navy:#0B1F3A;
+  --navy-mid:#122847;
+  --navy-light:#1A3A5C;
+  --gold:#C9A84C;
+  --gold-light:#E2C47A;
+  --gold-pale:#F5EDD6;
+  --white:#FFFFFF;
+  --off-white:#F8F6F1;
+  --text:#0B1F3A;
+  --muted:#5A6E84;
+  --border:#DDD5C0;
+  --radius:12px;
+  --radius-lg:20px;
+}
+
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--text);line-height:1.6;overflow-x:hidden}
+
+/* ── PAGE SYSTEM ── */
+.page{display:none;min-height:100vh;flex-direction:column}
+.page.active{display:flex}
+
+/* ── NAV ── */
+nav{
+  background:var(--navy);
+  padding:0 3rem;
+  height:72px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:200;
+  border-bottom:2px solid var(--gold);
+}
+.logo{
+  font-family:'DM Serif Display',serif;
+  font-size:1.45rem;color:var(--white);
+  display:flex;align-items:center;gap:10px;cursor:pointer;
+  text-decoration:none;
+}
+.logo-flame{
+  width:32px;height:32px;
+  background:var(--gold);
+  border-radius:50% 50% 40% 40%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;
+  position:relative;
+}
+.logo span{color:var(--gold-light)}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{
+  color:rgba(255,255,255,0.75);
+  text-decoration:none;font-size:0.9rem;font-weight:500;
+  letter-spacing:0.03em;transition:color 0.2s;
+  cursor:pointer;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--gold-light)}
+.nav-cta{
+  background:var(--gold);color:var(--navy)!important;
+  padding:8px 22px;border-radius:50px;
+  font-weight:600!important;
+  transition:background 0.2s,transform 0.2s!important;
+}
+.nav-cta:hover{background:var(--gold-light)!important;transform:translateY(-1px)}
+
+/* ── HERO ── */
+.hero{
+  background:var(--navy);
+  min-height:calc(100vh - 72px);
+  display:flex;align-items:center;
+  position:relative;overflow:hidden;
+  padding:5rem 3rem;
+}
+.hero-pattern{
+  position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(201,168,76,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(201,168,76,0.06) 0%, transparent 40%),
+    repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.01) 40px, rgba(255,255,255,0.01) 41px);
+}
+.hero-inner{max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;z-index:1}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(201,168,76,0.15);
+  border:1px solid rgba(201,168,76,0.35);
+  color:var(--gold-light);
+  font-size:0.78rem;font-weight:600;
+  letter-spacing:0.12em;text-transform:uppercase;
+  padding:7px 18px;border-radius:50px;
+  margin-bottom:1.8rem;
+}
+.hero-eyebrow::before{content:'';width:6px;height:6px;background:var(--gold);border-radius:50%;display:inline-block}
+.hero h1{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2.8rem,5vw,4.2rem);
+  color:var(--white);
+  line-height:1.08;
+  margin-bottom:1rem;
+}
+.hero h1 em{color:var(--gold-light);font-style:italic}
+.hero-tagline{
+  font-size:1.15rem;color:var(--gold-pale);
+  font-family:'DM Serif Display',serif;
+  font-style:italic;margin-bottom:1.2rem;
+}
+.hero p{color:rgba(255,255,255,0.65);font-size:1rem;max-width:480px;line-height:1.8;margin-bottom:2.5rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-gold{
+  background:var(--gold);color:var(--navy);
+  padding:14px 32px;border-radius:50px;
+  font-weight:600;font-size:0.95rem;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:background 0.2s,transform 0.2s,box-shadow 0.2s;
+  box-shadow:0 4px 24px rgba(201,168,76,0.35);
+  letter-spacing:0.02em;
+}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,168,76,0.45)}
+.btn-outline{
+  background:transparent;color:var(--white);
+  padding:14px 32px;border-radius:50px;
+  font-weight:500;font-size:0.95rem;
+  text-decoration:none;border:1.5px solid rgba(255,255,255,0.3);cursor:pointer;
+  transition:border-color 0.2s,background 0.2s;
+}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold-light)}
+
+/* HERO CARD */
+.hero-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(201,168,76,0.25);
+  border-radius:var(--radius-lg);
+  padding:2.5rem;
+  backdrop-filter:blur(10px);
+}
+.hero-card-title{
+  font-family:'DM Serif Display',serif;
+  color:var(--gold-light);font-size:1.1rem;
+  margin-bottom:1.5rem;
+  padding-bottom:1rem;
+  border-bottom:1px solid rgba(201,168,76,0.2);
+}
+.detail-row{
+  display:flex;align-items:flex-start;gap:1rem;
+  padding:0.9rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.detail-row:last-child{border-bottom:none}
+.detail-icon-wrap{
+  width:38px;height:38px;border-radius:10px;
+  background:rgba(201,168,76,0.12);
+  border:1px solid rgba(201,168,76,0.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;flex-shrink:0;
+}
+.detail-label{font-size:0.73rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:2px}
+.detail-val{color:var(--white);font-size:0.95rem;font-weight:500}
+.spots-bar{
+  margin-top:1.5rem;padding:1rem 1.2rem;
+  background:rgba(201,168,76,0.08);
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:10px;
+}
+.spots-label{font-size:0.78rem;color:var(--gold-light);font-weight:600;margin-bottom:8px;display:flex;justify-content:space-between}
+.spots-track{height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden}
+.spots-fill{height:100%;width:42%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:3px;
+  animation:fillbar 1.5s ease forwards;transform-origin:left}
+@keyframes fillbar{from{width:0}to{width:42%}}
+
+/* ── TRUST BAND ── */
+.trust-band{
+  background:var(--off-white);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:1.8rem 3rem;
+  display:flex;justify-content:center;gap:4rem;flex-wrap:wrap;
+}
+.trust-item{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:0.88rem;font-weight:500}
+.trust-item strong{color:var(--navy);font-weight:700}
+
+/* ── SECTIONS ── */
+section{padding:6rem 3rem}
+.section-inner{max-width:1100px;margin:0 auto}
+.eyebrow{
+  display:inline-block;color:var(--gold);
+  font-size:0.75rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:0.14em;
+  margin-bottom:0.75rem;
+}
+.section-title{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2rem,3.5vw,2.8rem);
+  color:var(--navy);line-height:1.15;margin-bottom:1rem;
+}
+.section-sub{color:var(--muted);font-size:1.05rem;max-width:560px;line-height:1.8}
+
+/* ── WHAT THEY LEARN ── */
+.learn-bg{background:var(--navy)}
+.learn-bg .section-title{color:var(--white)}
+.learn-bg .section-sub{color:rgba(255,255,255,0.55)}
+.learn-bg .eyebrow{color:var(--gold-light)}
+.learn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem}
+.learn-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:var(--radius-lg);
+  padding:2.2rem;
+  transition:transform 0.3s,border-color 0.3s,background 0.3s;
+  position:relative;overflow:hidden;
+}
+.learn-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.3s;
+}
+.learn-card:hover{transform:translateY(-6px);border-color:rgba(201,168,76,0.5);background:rgba(255,255,255,0.07)}
+.learn-card:hover::before{transform:scaleX(1)}
+.learn-num{
+  font-family:'DM Serif Display',serif;
+  font-size:3rem;color:rgba(201,168,76,0.15);
+  line-height:1;margin-bottom:1rem;
+}
+.learn-card h3{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--white);margin-bottom:0.6rem}
+.learn-card p{color:rgba(255,255,255,0.6);font-size:0.92rem;line-height:1.75}
+.learn-tag{
+  display:inline-block;margin-top:1.2rem;
+  background:rgba(201,168,76,0.12);
+  color:var(--gold-light);
+  font-size:0.72rem;font-weight:600;
+  letter-spacing:0.08em;text-transform:uppercase;
+  padding:5px 14px;border-radius:50px;
+  border:1px solid rgba(201,168,76,0.25);
+}
+
+/* ── WHY IGNITE ── */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:1rem}
+.why-list{display:flex;flex-direction:column;gap:1.5rem;margin-top:2.5rem}
+.why-item{display:flex;gap:1.2rem;align-items:flex-start}
+.why-icon{
+  width:44px;height:44px;border-radius:12px;
+  background:var(--gold-pale);
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;flex-shrink:0;
+}
+.why-item h4{font-weight:600;color:var(--navy);margin-bottom:3px;font-size:0.95rem}
+.why-item p{color:var(--muted);font-size:0.9rem;line-height:1.6}
+.why-visual{
+  background:var(--navy);
+  border-radius:var(--radius-lg);
+  padding:2.5rem;
+  position:relative;overflow:hidden;
+}
+.why-visual::before{
+  content:'';position:absolute;
+  top:-40px;right:-40px;
+  width:200px;height:200px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,76,0.15),transparent 70%);
+}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.stat-box{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:var(--radius);
+  padding:1.5rem;text-align:center;
+}
+.stat-num{font-family:'DM Serif Display',serif;font-size:2.8rem;color:var(--gold-light);line-height:1}
+.stat-label{color:rgba(255,255,255,0.55);font-size:0.78rem;margin-top:5px;font-weight:500}
+
+/* ── PAGE 2 ── */
+.page2-hero{
+  background:var(--navy);
+  padding:5rem 3rem 4rem;
+  position:relative;overflow:hidden;
+}
+.page2-hero::after{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.page2-hero-inner{max-width:1100px;margin:0 auto}
+.page2-hero h1{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2rem,4vw,3rem);color:var(--white);margin-bottom:0.5rem;
+}
+.page2-hero p{color:rgba(255,255,255,0.55);font-size:1rem}
+
+/* SCHEDULE */
+.schedule-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-top:2.5rem}
+.day-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.day-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(11,31,58,0.1)}
+.day-header{
+  background:var(--navy);
+  color:var(--gold-light);
+  font-family:'DM Serif Display',serif;
+  font-size:0.85rem;
+  padding:10px 14px;text-align:center;
+  letter-spacing:0.05em;
+}
+.day-date{
+  background:var(--gold-pale);
+  color:var(--navy);font-weight:700;
+  font-size:0.78rem;padding:6px 14px;
+  text-align:center;border-bottom:1px solid var(--border);
+}
+.day-body{padding:1rem}
+.day-focus{
+  font-weight:600;font-size:0.9rem;color:var(--navy);
+  margin-bottom:6px;
+}
+.day-desc{font-size:0.8rem;color:var(--muted);line-height:1.5}
+.day-tag{
+  margin-top:0.75rem;
+  display:inline-block;
+  background:var(--navy);color:var(--gold-light);
+  font-size:0.68rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:0.07em;
+  padding:3px 10px;border-radius:50px;
+}
+
+/* PRICING */
+.pricing-bg{background:var(--off-white)}
+.pricing-layout{display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;margin-top:3rem;align-items:start}
+.price-card{
+  background:var(--navy);
+  border-radius:var(--radius-lg);
+  padding:3rem;
+  position:relative;overflow:hidden;
+}
+.price-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));
+}
+.price-label{
+  color:var(--gold-light);font-size:0.75rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem;
+}
+.price-amount{
+  font-family:'DM Serif Display',serif;
+  font-size:5.5rem;color:var(--white);line-height:1;
+  margin-bottom:0.25rem;
+}
+.price-amount sup{font-size:2rem;vertical-align:super}
+.price-period{color:rgba(255,255,255,0.45);font-size:0.9rem;margin-bottom:2rem}
+.price-includes{
+  border-top:1px solid rgba(255,255,255,0.1);
+  padding-top:1.5rem;margin-bottom:2rem;
+}
+.price-includes-title{color:rgba(255,255,255,0.45);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
+.include-item{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.8);font-size:0.9rem;margin-bottom:0.6rem}
+.include-check{
+  width:18px;height:18px;border-radius:50%;
+  background:rgba(201,168,76,0.2);
+  border:1px solid rgba(201,168,76,0.4);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.65rem;color:var(--gold-light);flex-shrink:0;
+}
+.payment-section{
+  background:var(--white);
+  border-radius:var(--radius-lg);
+  padding:2rem;
+  border:1px solid var(--border);
+}
+.payment-section h3{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--navy);margin-bottom:0.4rem}
+.payment-section p{color:var(--muted);font-size:0.88rem;margin-bottom:1.5rem}
+.pay-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.5rem}
+.pay-method{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 14px;
+  background:var(--off-white);
+  border:1px solid var(--border);
+  border-radius:10px;
+  font-size:0.85rem;font-weight:600;color:var(--navy);
+}
+.pay-dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.spots-section{
+  background:var(--gold-pale);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:1.2rem;
+  margin-top:1rem;
+}
+.spots-top{display:flex;justify-content:space-between;margin-bottom:8px}
+.spots-count{font-weight:700;color:var(--navy);font-size:0.9rem}
+.spots-remain{color:var(--gold);font-weight:700;font-size:0.9rem}
+.spots-track2{height:8px;background:rgba(11,31,58,0.1);border-radius:4px;overflow:hidden}
+.spots-fill2{height:100%;width:42%;background:linear-gradient(90deg,var(--navy),var(--navy-light));border-radius:4px}
+
+/* FAQ */
+.faq-list{margin-top:2.5rem;display:flex;flex-direction:column;gap:0.75rem;max-width:780px}
+.faq-item{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+.faq-q{
+  padding:1.2rem 1.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  cursor:pointer;
+  font-weight:600;font-size:0.95rem;color:var(--navy);
+  transition:background 0.2s;
+}
+.faq-q:hover{background:var(--off-white)}
+.faq-toggle{
+  width:24px;height:24px;border-radius:50%;
+  background:var(--navy);color:var(--gold-light);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;flex-shrink:0;
+  transition:transform 0.3s,background 0.2s;
+}
+.faq-item.open .faq-toggle{transform:rotate(45deg);background:var(--gold)}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height 0.35s ease,padding 0.2s;
+  font-size:0.92rem;color:var(--muted);line-height:1.75;
+  padding:0 1.5rem;
+}
+.faq-item.open .faq-a{max-height:300px;padding:0 1.5rem 1.2rem}
+
+/* REGISTRATION */
+.reg-bg{background:var(--navy)}
+.reg-bg .section-title{color:var(--white)}
+.reg-bg .section-sub{color:rgba(255,255,255,0.55)}
+.reg-bg .eyebrow{color:var(--gold-light)}
+.reg-layout{display:grid;grid-template-columns:1fr 1.4fr;gap:4rem;align-items:start;margin-top:3rem}
+.reg-perks{display:flex;flex-direction:column;gap:1.2rem}
+.reg-perk{display:flex;gap:1rem;align-items:flex-start}
+.perk-icon{
+  width:42px;height:42px;border-radius:10px;
+  background:rgba(201,168,76,0.12);
+  border:1px solid rgba(201,168,76,0.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+}
+.reg-perk h4{color:var(--white);font-weight:600;font-size:0.92rem;margin-bottom:2px}
+.reg-perk p{color:rgba(255,255,255,0.5);font-size:0.83rem;line-height:1.5}
+.contact-box{
+  background:rgba(201,168,76,0.08);
+  border:1px solid rgba(201,168,76,0.25);
+  border-radius:var(--radius);
+  padding:1.5rem;
+  margin-top:2rem;
+}
+.contact-box h4{color:var(--gold-light);font-weight:600;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem}
+.contact-link{color:var(--white);font-size:0.95rem;display:flex;align-items:center;gap:8px;text-decoration:none}
+.contact-link:hover{color:var(--gold-light)}
+
+/* FORM */
+.reg-form{
+  background:var(--white);
+  border-radius:var(--radius-lg);
+  padding:2.5rem;
+}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg label{font-size:0.73rem;font-weight:600;text-transform:uppercase;letter-spacing:0.09em;color:var(--muted)}
+.fg input,.fg select{
+  padding:11px 14px;
+  border:1.5px solid var(--border);
+  border-radius:10px;
+  font-family:'DM Sans',sans-serif;
+  font-size:0.95rem;color:var(--navy);
+  background:var(--white);
+  outline:none;transition:border-color 0.2s;
+}
+.fg input:focus,.fg select:focus{border-color:var(--gold)}
+.fg-full{grid-column:1/-1}
+.form-submit{
+  width:100%;margin-top:1rem;
+  padding:15px;
+  background:var(--navy);color:var(--white);
+  border:none;border-radius:50px;
+  font-family:'DM Serif Display',serif;
+  font-size:1.2rem;cursor:pointer;
+  transition:background 0.2s,transform 0.2s;
+  letter-spacing:0.02em;
+}
+.form-submit:hover{background:var(--navy-light);transform:translateY(-1px)}
+.form-note{font-size:0.78rem;color:var(--muted);text-align:center;margin-top:0.75rem}
+.form-success{
+  display:none;text-align:center;padding:2rem;
+}
+.form-success h3{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--navy);margin-bottom:0.5rem}
+.form-success p{color:var(--muted)}
+
+/* FOOTER */
+footer{
+  background:#060E1A;
+  color:rgba(255,255,255,0.45);
+  padding:3rem;
+  border-top:1px solid rgba(201,168,76,0.2);
+}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem}
+.footer-logo{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--white)}
+.footer-logo span{color:var(--gold-light)}
+.footer-links{display:flex;gap:2rem;list-style:none}
+.footer-links a{color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.85rem;cursor:pointer;transition:color 0.2s}
+.footer-links a:hover{color:var(--gold-light)}
+.footer-copy{font-size:0.8rem;width:100%;margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.06)}
+
+/* REVEAL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.65s ease,transform 0.65s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}
+
+@media(max-width:900px){
+  .hero-inner,.why-grid,.reg-layout,.pricing-layout{grid-template-columns:1fr}
+  .learn-grid{grid-template-columns:1fr}
+  .schedule-grid{grid-template-columns:1fr 1fr}
+  nav{padding:0 1.5rem}
+  .nav-links{gap:1rem}
+  section{padding:4rem 1.5rem}
+  .hero{padding:3rem 1.5rem}
+}
+@media(max-width:600px){
+  .schedule-grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .pay-grid{grid-template-columns:1fr}
+  .trust-band{gap:1.5rem;padding:1.5rem}
+  .footer-inner{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav>
+  <a class="logo" onclick="showPage('home')">
+    <div class="logo-flame">🔥</div>
+    Ignite <span>Initiatives</span>
+  </a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="showPage('info');document.getElementById('schedule').scrollIntoView({behavior:'smooth'})" id="nav-schedule">Schedule</a></li>
+    <li><a onclick="showPage('info');document.getElementById('faqs').scrollIntoView({behavior:'smooth'})">FAQs</a></li>
+    <li><a onclick="showPage('info');document.getElementById('register').scrollIntoView({behavior:'smooth'})" class="nav-cta">Register Now</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════
+     PAGE 1 — HOME
+══════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">Summer 2025 · Okemos, MI</div>
+        <h1>Where Young Minds <em>Ignite</em> a Future in Tech</h1>
+        <p class="hero-tagline">Essentials of Computer Science</p>
+        <p>A warm, structured, and genuinely fun 5-day coding camp designed for middle schoolers. Your child will leave with real projects, new confidence, and skills that last a lifetime — no prior experience needed.</p>
+        <div class="hero-btns">
+          <button class="btn-gold" onclick="showPage('info');setTimeout(()=>document.getElementById('register').scrollIntoView({behavior:'smooth'}),100)">Reserve a Spot — $125</button>
+          <button class="btn-outline" onclick="showPage('info')">See Full Details</button>
+        </div>
+      </div>
+      <div>
+        <div class="hero-card">
+          <div class="hero-card-title">Camp at a Glance</div>
+          <div class="detail-row">
+            <div class="detail-icon-wrap">📅</div>
+            <div>
+              <div class="detail-label">Dates</div>
+              <div class="detail-val">June 8 – 12, 2025 · Mon–Fri</div>
+            </div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-icon-wrap">⏰</div>
+            <div>
+              <div class="detail-label">Hours</div>
+              <div class="detail-val">10:00 AM – 2:00 PM daily</div>
+            </div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-icon-wrap">🎓</div>
+            <div>
+              <div class="detail-label">Who It's For</div>
+              <div class="detail-val">Grades 5–8 · No experience needed</div>
+            </div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-icon-wrap">📍</div>
+            <div>
+              <div class="detail-label">Location</div>
+              <div class="detail-val">2150 Association Dr, Suite 270<br/>Okemos, MI 48864</div>
+            </div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-icon-wrap">💰</div>
+            <div>
+              <div class="detail-label">Tuition</div>
+              <div class="detail-val">$125 · Cash, Venmo, PayPal, Zelle, Cash App</div>
+            </div>
+          </div>
+          <div class="spots-bar">
+            <div class="spots-label">
+              <span>Enrollment Filling Up</span>
+              <span>15 of 35 spots claimed</span>
+            </div>
+            <div class="spots-track"><div class="spots-fill"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAND -->
+  <div class="trust-band">
+    <div class="trust-item"><strong>35</strong> Student Cap — Small Classes</div>
+    <div class="trust-item"><strong>5</strong> Hands-On Project Days</div>
+    <div class="trust-item"><strong>3</strong> Real Projects Built</div>
+    <div class="trust-item"><strong>Zero</strong> Prior Experience Needed</div>
+  </div>
+
+  <!-- WHAT THEY BUILD -->
+  <section class="learn-bg">
+    <div class="section-inner">
+      <p class="eyebrow reveal">The Curriculum</p>
+      <h2 class="section-title reveal">Three Projects. Five Days. Real Skills.</h2>
+      <p class="section-sub reveal">Every student completes three hands-on projects they can show off to family and friends — building genuine confidence along the way.</p>
+      <div class="learn-grid">
+        <div class="learn-card reveal reveal-delay-1">
+          <div class="learn-num">01</div>
+          <h3>Build a Website</h3>
+          <p>Students design and publish their very own website from scratch. They'll learn how web pages are structured, how to style them with color and layout, and how to make something that looks genuinely great.</p>
+          <span class="learn-tag">HTML · CSS</span>
+        </div>
+        <div class="learn-card reveal reveal-delay-2">
+          <div class="learn-num">02</div>
+          <h3>Create an App</h3>
+          <p>Moving beyond the basics, students bring their first interactive app to life. They'll understand how programs think, how buttons respond, and how logic turns ideas into working software.</p>
+          <span class="learn-tag">Programming Logic</span>
+        </div>
+        <div class="learn-card reveal reveal-delay-3">
+          <div class="learn-num">03</div>
+          <h3>Design a Game</h3>
+          <p>The most anticipated project — students plan, code, and play their own game. They'll experience the full creative process from concept to a playable product, learning loops, conditions, and more.</p>
+          <span class="learn-tag">JavaScript Basics</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY IGNITE -->
+  <section>
+    <div class="section-inner">
+      <div class="why-grid">
+        <div>
+          <p class="eyebrow reveal">Why Ignite Initiatives</p>
+          <h2 class="section-title reveal">A Camp Built Around Your Child's Confidence</h2>
+          <p class="section-sub reveal">We believe every middle schooler is capable of creating real technology. Our camp is designed to be encouraging, structured, and genuinely exciting — for both students and parents.</p>
+          <div class="why-list">
+            <div class="why-item reveal">
+              <div class="why-icon">🧠</div>
+              <div>
+                <h4>Zero Experience Required</h4>
+                <p>We start from the very beginning. If your child has never touched code before, that's exactly who this camp is designed for.</p>
+              </div>
+            </div>
+            <div class="why-item reveal">
+              <div class="why-icon">👨‍👩‍👧</div>
+              <div>
+                <h4>Small Group, Individual Attention</h4>
+                <p>With a cap of just 35 students, every child receives personal guidance and support throughout the week.</p>
+              </div>
+            </div>
+            <div class="why-item reveal">
+              <div class="why-icon">💻</div>
+              <div>
+                <h4>Real Projects to Take Home</h4>
+                <p>Students leave with a website, an app, and a game they built themselves — tangible proof of what they're capable of.</p>
+              </div>
+            </div>
+            <div class="why-item reveal">
+              <div class="why-icon">📍</div>
+              <div>
+                <h4>Conveniently Located</h4>
+                <p>Held right in Okemos at 2150 Association Dr — easy drop-off and pick-up for local families.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="why-visual">
+            <div class="stat-grid">
+              <div class="stat-box">
+                <div class="stat-num">5</div>
+                <div class="stat-label">Days of learning</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-num">35</div>
+                <div class="stat-label">Max students</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-num">3</div>
+                <div class="stat-label">Projects built</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-num">$125</div>
+                <div class="stat-label">Full week tuition</div>
+              </div>
+            </div>
+            <div style="margin-top:2rem;padding:1.5rem;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);border-radius:12px">
+              <p style="color:rgba(255,255,255,0.6);font-size:0.85rem;line-height:1.7;font-style:italic">"We want every student to leave on Friday feeling like a creator — someone who understands that technology isn't magic, it's something they can build."</p>
+              <p style="color:var(--gold-light);font-size:0.78rem;font-weight:600;margin-top:0.75rem">— Ignite Initiatives Team</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section style="background:var(--gold-pale);padding:4rem 3rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+    <div class="section-inner" style="text-align:center">
+      <p class="eyebrow">Only 35 Spots Available</p>
+      <h2 class="section-title reveal" style="max-width:600px;margin:0 auto 1rem">Ready to Ignite Your Child's Passion for Technology?</h2>
+      <p style="color:var(--muted);margin-bottom:2rem;font-size:1rem">Registration takes just 2 minutes. Questions? Email us at igniteinitiatives@gmail.com</p>
+      <button class="btn-gold" onclick="showPage('info');setTimeout(()=>document.getElementById('register').scrollIntoView({behavior:'smooth'}),100)">Register Now — $125 per Student</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Ignite <span>Initiatives</span></div>
+      <ul class="footer-links">
+        <li><a onclick="showPage('home')">Home</a></li>
+        <li><a onclick="showPage('info')">Schedule & Info</a></li>
+        <li><a onclick="showPage('info');setTimeout(()=>document.getElementById('register').scrollIntoView({behavior:'smooth'}),100)">Register</a></li>
+        <li><a href="mailto:igniteinitiatives@gmail.com">Contact</a></li>
+      </ul>
+      <div class="footer-copy">© 2025 Ignite Initiatives · Essentials of Computer Science · Okemos, MI · <a href="mailto:igniteinitiatives@gmail.com" style="color:var(--gold-light);text-decoration:none">igniteinitiatives@gmail.com</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════
+     PAGE 2 — INFO & REGISTER
+══════════════════════════════════ -->
+<div class="page" id="page-info">
+
+  <!-- PAGE HERO -->
+  <div class="page2-hero">
+    <div class="page2-hero-inner">
+      <p class="eyebrow" style="color:var(--gold-light)">Essentials of Computer Science</p>
+      <h1>Schedule, Pricing & Registration</h1>
+      <p>Everything you need to know before reserving your child's spot.</p>
+    </div>
+  </div>
+
+  <!-- SCHEDULE -->
+  <section id="schedule" style="background:var(--off-white)">
+    <div class="section-inner">
+      <p class="eyebrow reveal">Week Overview</p>
+      <h2 class="section-title reveal">What Happens Each Day</h2>
+      <p class="section-sub reveal">Each day runs from 10:00 AM to 2:00 PM. Students should bring their own laptop and a packed lunch or snack.</p>
+      <div class="schedule-grid">
+        <div class="day-card reveal">
+          <div class="day-header">Day 1 — Monday</div>
+          <div class="day-date">June 8</div>
+          <div class="day-body">
+            <div class="day-focus">Welcome & the Web</div>
+            <div class="day-desc">Introductions, setting up tools, and diving into how the internet actually works. Students write their first lines of HTML.</div>
+            <span class="day-tag">HTML Foundations</span>
+          </div>
+        </div>
+        <div class="day-card reveal reveal-delay-1">
+          <div class="day-header">Day 2 — Tuesday</div>
+          <div class="day-date">June 9</div>
+          <div class="day-body">
+            <div class="day-focus">Style & Design</div>
+            <div class="day-desc">Students bring their websites to life with colors, fonts, and layouts using CSS. Personal websites start taking real shape.</div>
+            <span class="day-tag">CSS Styling</span>
+          </div>
+        </div>
+        <div class="day-card reveal reveal-delay-2">
+          <div class="day-header">Day 3 — Wednesday</div>
+          <div class="day-date">June 10</div>
+          <div class="day-body">
+            <div class="day-focus">Making Things Interactive</div>
+            <div class="day-desc">Introduction to programming logic. Students build their first simple app and learn how to make web pages respond to clicks and input.</div>
+            <span class="day-tag">JavaScript Intro</span>
+          </div>
+        </div>
+        <div class="day-card reveal reveal-delay-3">
+          <div class="day-header">Day 4 — Thursday</div>
+          <div class="day-date">June 11</div>
+          <div class="day-body">
+            <div class="day-focus">Game Day — Build It</div>
+            <div class="day-desc">The most anticipated session. Students plan and build their own mini game, applying everything they've learned so far.</div>
+            <span class="day-tag">Game Development</span>
+          </div>
+        </div>
+        <div class="day-card reveal">
+          <div class="day-header">Day 5 — Friday</div>
+          <div class="day-date">June 12</div>
+          <div class="day-body">
+            <div class="day-focus">Showcase & Celebrate</div>
+            <div class="day-desc">Students finish their projects, present what they built, and celebrate a week of incredible work. Families welcome!</div>
+            <span class="day-tag">Demo Day 🎉</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="pricing-bg">
+    <div class="section-inner">
+      <p class="eyebrow reveal">Tuition</p>
+      <h2 class="section-title reveal">Simple, All-Inclusive Pricing</h2>
+      <p class="section-sub reveal">One flat fee covers the full five-day camp. No hidden costs, no supply fees — just show up ready to learn.</p>
+      <div class="pricing-layout">
+        <div class="price-card reveal">
+          <div class="price-label">Full Camp Enrollment</div>
+          <div class="price-amount"><sup>$</sup>125</div>
+          <div class="price-period">per student · June 8–12, 2025</div>
+          <div class="price-includes">
+            <div class="price-includes-title">What's included</div>
+            <div class="include-item"><span class="include-check">✓</span> All 5 days of instruction (10 AM–2 PM)</div>
+            <div class="include-item"><span class="include-check">✓</span> 3 completed projects: website, app & game</div>
+            <div class="include-item"><span class="include-check">✓</span> Small class of 35 students max</div>
+            <div class="include-item"><span class="include-check">✓</span> Beginner-friendly — zero experience needed</div>
+            <div class="include-item"><span class="include-check">✓</span> Grades 5–8 welcome</div>
+          </div>
+          <button class="btn-gold" style="width:100%;padding:15px;font-size:1rem;border-radius:50px" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Reserve Your Child's Spot →</button>
+        </div>
+        <div>
+          <div class="payment-section reveal">
+            <h3>Payment Methods</h3>
+            <p>We accept all major digital payment methods as well as cash. Payment details will be sent after registration.</p>
+            <div class="pay-grid">
+              <div class="pay-method"><span class="pay-dot"></span> Cash</div>
+              <div class="pay-method"><span class="pay-dot"></span> Venmo</div>
+              <div class="pay-method"><span class="pay-dot"></span> PayPal</div>
+              <div class="pay-method"><span class="pay-dot"></span> Zelle</div>
+              <div class="pay-method"><span class="pay-dot"></span> Cash App</div>
+            </div>
+            <p style="font-size:0.82rem;color:var(--muted)">Payment is due upon confirmation. We'll send you payment instructions within 24 hours of receiving your registration.</p>
+          </div>
+          <div class="spots-section reveal" style="margin-top:1rem">
+            <div class="spots-top">
+              <span class="spots-count">Enrollment Status</span>
+              <span class="spots-remain">20 spots remaining</span>
+            </div>
+            <div class="spots-track2"><div class="spots-fill2"></div></div>
+            <p style="font-size:0.78rem;color:var(--muted);margin-top:8px">15 of 35 spots have been claimed. We expect this camp to fill quickly.</p>
+          </div>
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-top:1rem" class="reveal">
+            <p style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:0.6rem">Need Help?</p>
+            <p style="font-size:0.88rem;color:var(--text);margin-bottom:0.5rem">Reach out anytime with questions about the camp, registration, or payment.</p>
+            <a href="mailto:igniteinitiatives@gmail.com" style="color:var(--navy);font-weight:700;font-size:0.92rem;text-decoration:none">✉ igniteinitiatives@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section id="faqs">
+    <div class="section-inner">
+      <p class="eyebrow reveal">Parent Questions</p>
+      <h2 class="section-title reveal">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <div class="faq-q" onclick="toggleFaq(this)">Does my child need any coding experience? <span class="faq-toggle">+</span></div>
+          <div class="faq-a">Absolutely not — this camp is designed specifically for beginners. We start from the very basics and move at a pace that's comfortable for students who have never written a line of code. First-timers are not just welcome, they're exactly who we built this for.</div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q" onclick="toggleFaq(this)">What does my child need to bring? <span class="faq-toggle">+</span></div>
+          <div class="faq-a">Students should bring their own laptop (Windows or Mac both work fine), a charger, and a packed lunch or snack. We'll handle everything else — software setup, materials, and instruction are all included in the tuition.</div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q" onclick="toggleFaq(this)">What grades and ages can attend? <span class="faq-toggle">+</span></div>
+          <div class="faq-a">The camp is open to students currently in grades 5 through 8. This typically covers ages 10–14. If you're unsure whether your child is a good fit, feel free to reach out at igniteinitiatives@gmail.com and we're happy to chat.</div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q" onclick="toggleFaq(this)">When and how is payment due? <span class="faq-toggle">+</span></div>
+          <div class="faq-a">Payment of $125 is due after we confirm your registration — within 24 hours of receiving your form, we'll email you with payment instructions. We accept Cash, Venmo, PayPal, Zelle, and Cash App. Your spot is secured once payment is received.</div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q" onclick="toggleFaq(this)">What is the drop-off and pick-up process? <span class="faq-toggle">+</span></div>
+          <div class="faq-a">Camp runs 10:00 AM to 2:00 PM each day. Drop-off begins at 9:45 AM. The camp is located at 2150 Association Dr, Suite 270, Okemos, MI 48864. More logistics details will be sent in your confirmation email after registration.</div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q" onclick="toggleFaq(this)">Is there a refund policy? <span class="faq-toggle">+</span></div>
+          <div class="faq-a">We understand that plans change. Please reach out to us at igniteinitiatives@gmail.com as soon as possible if you need to cancel. We'll do our best to accommodate refund requests made before June 1, 2025.</div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q" onclick="toggleFaq(this)">How many students are in the camp? <span class="faq-toggle">+</span></div>
+          <div class="faq-a">We cap enrollment at 35 students to ensure every child gets individual attention and support throughout the week. This small group size is intentional — it creates a welcoming atmosphere and allows for personalized instruction.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGISTRATION -->
+  <section id="register" class="reg-bg">
+    <div class="section-inner">
+      <p class="eyebrow reveal">Enrollment</p>
+      <h2 class="section-title reveal">Reserve Your Child's Spot</h2>
+      <p class="section-sub reveal">Fill out the form below and we'll follow up within 24 hours with a confirmation and payment instructions.</p>
+      <div class="reg-layout">
+        <div>
+          <div class="reg-perks">
+            <div class="reg-perk reveal">
+              <div class="perk-icon">✅</div>
+              <div>
+                <h4>Quick & Easy</h4>
+                <p>Registration takes about 2 minutes. No account needed — just submit the form and we'll handle the rest.</p>
+              </div>
+            </div>
+            <div class="reg-perk reveal">
+              <div class="perk-icon">📧</div>
+              <div>
+                <h4>Confirmation in 24 Hours</h4>
+                <p>You'll receive a confirmation email with payment instructions and everything you need to know before camp starts.</p>
+              </div>
+            </div>
+            <div class="reg-perk reveal">
+              <div class="perk-icon">🔒</div>
+              <div>
+                <h4>Spot Secured on Payment</h4>
+                <p>Your child's place is officially reserved once payment is received. Spots are first come, first served.</p>
+              </div>
+            </div>
+            <div class="reg-perk reveal">
+              <div class="perk-icon">💬</div>
+              <div>
+                <h4>Questions Welcome</h4>
+                <p>Never hesitate to reach out. We're happy to answer any questions before or after you register.</p>
+              </div>
+            </div>
+          </div>
+          <div class="contact-box reveal">
+            <h4>Contact Us</h4>
+            <a href="mailto:igniteinitiatives@gmail.com" class="contact-link">✉ igniteinitiatives@gmail.com</a>
+          </div>
+        </div>
+        <div class="reg-form reveal" id="reg-form-wrap">
+          <div id="form-content">
+            <h3 style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:1.5rem">Student Registration</h3>
+            <div class="form-grid">
+              <div class="fg">
+                <label>Student First Name</label>
+                <input type="text" id="f-first" placeholder="First name"/>
+              </div>
+              <div class="fg">
+                <label>Student Last Name</label>
+                <input type="text" id="f-last" placeholder="Last name"/>
+              </div>
+              <div class="fg">
+                <label>Current Grade</label>
+                <select id="f-grade">
+                  <option value="">Select grade</option>
+                  <option>5th Grade</option>
+                  <option>6th Grade</option>
+                  <option>7th Grade</option>
+                  <option>8th Grade</option>
+                </select>
+              </div>
+              <div class="fg">
+                <label>Student Age</label>
+                <input type="number" id="f-age" placeholder="Age" min="9" max="16"/>
+              </div>
+              <div class="fg fg-full">
+                <label>Parent / Guardian Name</label>
+                <input type="text" id="f-parent" placeholder="Full name"/>
+              </div>
+              <div class="fg fg-full">
+                <label>Email Address</label>
+                <input type="email" id="f-email" placeholder="your@email.com"/>
+              </div>
+              <div class="fg fg-full">
+                <label>Phone Number</label>
+                <input type="tel" id="f-phone" placeholder="(555) 000-0000"/>
+              </div>
+              <div class="fg fg-full">
+                <label>Preferred Payment Method</label>
+                <select id="f-payment">
+                  <option value="">Select payment</option>
+                  <option>Cash</option>
+                  <option>Venmo</option>
+                  <option>PayPal</option>
+                  <option>Zelle</option>
+                  <option>Cash App</option>
+                </select>
+              </div>
+            </div>
+            <button class="form-submit" onclick="submitForm()">Submit Registration →</button>
+            <p class="form-note">We'll email you within 24 hours. Questions? igniteinitiatives@gmail.com</p>
+          </div>
+          <div class="form-success" id="form-success">
+            <div style="font-size:3rem;margin-bottom:1rem">🎉</div>
+            <h3>You're Registered!</h3>
+            <p style="margin-bottom:0.5rem">Thank you for signing up for Ignite Initiatives.</p>
+            <p>We'll be in touch at your email address within 24 hours with confirmation and payment instructions.</p>
+            <p style="margin-top:1rem;font-size:0.85rem;color:var(--muted)">Questions? <a href="mailto:igniteinitiatives@gmail.com" style="color:var(--navy)">igniteinitiatives@gmail.com</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section style="background:var(--off-white)">
+    <div class="section-inner">
+      <p class="eyebrow reveal">Getting Here</p>
+      <h2 class="section-title reveal">Camp Location</h2>
+      <div style="display:grid;grid-template-columns:1fr 1.5fr;gap:3rem;margin-top:2.5rem;align-items:start">
+        <div class="reveal">
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem">
+            <h3 style="font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--navy);margin-bottom:1.2rem">Address</h3>
+            <p style="font-weight:600;color:var(--navy);font-size:1rem;line-height:1.7">2150 Association Dr<br/>Suite 270<br/>Okemos, MI 48864</p>
+            <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+              <div style="display:flex;flex-direction:column;gap:0.8rem">
+                <div><span style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted)">Drop-Off</span><br/><span style="font-weight:600;font-size:0.92rem">From 9:45 AM daily</span></div>
+                <div><span style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted)">Pick-Up</span><br/><span style="font-weight:600;font-size:0.92rem">2:00 PM daily</span></div>
+                <div><span style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted)">Questions</span><br/><a href="mailto:igniteinitiatives@gmail.com" style="color:var(--navy);font-weight:600;font-size:0.88rem;text-decoration:none">igniteinitiatives@gmail.com</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal" style="border-radius:var(--radius-lg);overflow:hidden;height:320px;border:1px solid var(--border)">
+          <iframe src="https://www.google.com/maps?q=2150+Association+Dr+Suite+270+Okemos+MI+48864&output=embed" width="100%" height="100%" style="border:none" loading="lazy" title="Camp Location"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Ignite <span>Initiatives</span></div>
+      <ul class="footer-links">
+        <li><a onclick="showPage('home')">Home</a></li>
+        <li><a onclick="document.getElementById('schedule').scrollIntoView({behavior:'smooth'})">Schedule</a></li>
+        <li><a onclick="document.getElementById('faqs').scrollIntoView({behavior:'smooth'})">FAQs</a></li>
+        <li><a onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Register</a></li>
+        <li><a href="mailto:igniteinitiatives@gmail.com">Contact</a></li>
+      </ul>
+      <div class="footer-copy">© 2025 Ignite Initiatives · Essentials of Computer Science · Okemos, MI · <a href="mailto:igniteinitiatives@gmail.com" style="color:var(--gold-light);text-decoration:none">igniteinitiatives@gmail.com</a></div>
+    </div>
+  </footer>
+</div>
+
+<script>
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  document.getElementById('nav-'+name)?.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(initReveal,100);
+}
+
+function toggleFaq(el){
+  const item=el.parentElement;
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!isOpen)item.classList.add('open');
+}
+
+function submitForm(){
+  const fields=['f-first','f-last','f-grade','f-parent','f-email','f-phone','f-payment'];
+  let valid=true;
+  fields.forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el.value.trim()){el.style.borderColor='#E24B4A';valid=false;}
+    else el.style.borderColor='';
+  });
+  if(!valid){alert('Please fill in all required fields.');return;}
+  document.getElementById('form-content').style.display='none';
+  document.getElementById('form-success').style.display='block';
+}
+
+function initReveal(){
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+  },{threshold:0.08});
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el=>obs.observe(el));
+}
+initReveal();
+</script>
+</body>
+</html>
